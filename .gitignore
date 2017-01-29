@@ -58,4 +58,6 @@ log/
 # This project
 .hubot_history
 node_modules
+config/*
+!config/*sample
 

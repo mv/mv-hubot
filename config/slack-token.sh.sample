@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+
+# my token
+export HUBOT_SLACK_TOKEN=abcd-1234567890-example
+echo  $HUBOT_SLACK_TOKEN
+
+

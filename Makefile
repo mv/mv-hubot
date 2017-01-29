@@ -2,7 +2,7 @@
 
 # VERSION :=$(shell bash version.sh )
 # RELEASE :=$(shell ls -1 dist/*.noarch.rpm 2>/dev/null | wc -l )
-# HASH	:=$(shell git rev-parse HEAD )
+TOKEN :=$(shell bash config/slack-token.sh)
 
 .PHONY: create-stack  \
 	update-stack  \
@@ -24,6 +24,9 @@ all:
 	@echo "    make test         - Run tests"
 	@echo "    make install      - Install on local system"
 	@echo "    make clean        - Get rid of scratch and byte files"
+
+var:
+	@echo "Token: $(TOKEN)"
 
 eb-init:
 	eb init hubot-eb \
@@ -49,7 +52,7 @@ eb-create-single:
 	    --platform node.js   \
 	    --region=us-west-2   \
 	    --cname hubot-single \
-	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=xoxb-3454667353-AyXYgFenjzcB5rrFRhuze6XW \
+	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=$(TOKEN) \
 	    --tags    App=hubot,Owner=mv \
 	    --instance_type=t2.micro     \
 	    --single
@@ -60,7 +63,7 @@ eb-create-green:
 	    --platform node.js   \
 	    --region=us-west-2   \
 	    --cname hubot-green  \
-	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=xoxb-3454667353-AyXYgFenjzcB5rrFRhuze6XW \
+	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=$(TOKEN) \
 	    --tags    App=hubot,Owner=mv \
 	    --instance_type=t2.micro     \
 	    --elb-type classic           \
@@ -72,7 +75,7 @@ eb-create-blue:
 	    --platform node.js   \
 	    --region=us-west-2   \
 	    --cname hubot-blue   \
-	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=xoxb-3454667353-AyXYgFenjzcB5rrFRhuze6XW \
+	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=$(TOKEN) \
 	    --tags    App=hubot,Owner=mv \
 	    --instance_type=t2.micro     \
 	    --elb-type classic           \
