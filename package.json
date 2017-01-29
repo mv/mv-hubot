@@ -23,6 +23,6 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "start": "bin/hubot"
+    "start": "node node_modules/coffee-script/bin/coffee node_modules/hubot/bin/hubot --name hubot --adapter slack"
   }
 }
