@@ -28,7 +28,7 @@ Configure your token in `config/slack-token.sh`:
     #
 
     # my token
-	export HUBOT_SLACK_TOKEN=abcd-1234567890-example
+	export HUBOT_SLACK_TOKEN="abcd-1234567890-example"
 	echo  $HUBOT_SLACK_TOKEN
 ```
 
@@ -99,7 +99,7 @@ To very your deployments:
 	eb health   # eb system health
 	eb logs     # get environment logs
 	eb events   # get environment latest events
-	eb console  # Open AWS Elastic Beanstalk console
+	eb console  # open AWS Elastic Beanstalk console
 
 
 To see all defined `Makefile` tasks:
