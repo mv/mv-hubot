@@ -114,8 +114,7 @@ install: version
 	./setup.py install --root $(DESTDIR)
 
 clean:
-	./setup.py clean
-	rm -rf dist build MANIFEST .tox *.log
+	rm -rf ./node_modules/*
 	find . -name '*.pyc' -delete
 
 version:
