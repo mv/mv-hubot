@@ -50,13 +50,12 @@ tmp/
 log/
 .vagrant/
 
-# This project
-.hubot_history
-node_modules
-
-
-
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# This project
+.hubot_history
+node_modules
+

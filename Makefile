@@ -32,6 +32,53 @@ eb-init:
 	    --region $(AWS_DEFAULT_REGION)  \
 	    --profile default
 
+eb-create-sample:
+	eb create                \
+	    hubot-sample         \
+	    --platform node.js   \
+	    --region=us-west-2   \
+	    --cname hubot-sample \
+	    --envvars APP=hubot,OWNER=mv \
+	    --tags    App=hubot,Owner=mv \
+	    --instance_type=t2.micro     \
+	    --sample
+
+eb-create-single:
+	eb create                \
+	    hubot-single         \
+	    --platform node.js   \
+	    --region=us-west-2   \
+	    --cname hubot-single \
+	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=xoxb-3454667353-AyXYgFenjzcB5rrFRhuze6XW \
+	    --tags    App=hubot,Owner=mv \
+	    --instance_type=t2.micro     \
+	    --single
+
+eb-create-green:
+	eb create                \
+	    hubot-green          \
+	    --platform node.js   \
+	    --region=us-west-2   \
+	    --cname hubot-green  \
+	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=xoxb-3454667353-AyXYgFenjzcB5rrFRhuze6XW \
+	    --tags    App=hubot,Owner=mv \
+	    --instance_type=t2.micro     \
+	    --elb-type classic           \
+	    --vpc.id vpc-b45ed0d1        \
+
+eb-create-blue:
+	eb create                \
+	    hubot-blue           \
+	    --platform node.js   \
+	    --region=us-west-2   \
+	    --cname hubot-blue   \
+	    --envvars APP=hubot,OWNER=mv,HUBOT_SLACK_TOKEN=xoxb-3454667353-AyXYgFenjzcB5rrFRhuze6XW \
+	    --tags    App=hubot,Owner=mv \
+	    --instance_type=t2.micro     \
+	    --elb-type classic           \
+	    --vpc.id vpc-b45ed0d1        \
+	    --vpc.ec2subnets subnet-5e17763b,subnet-ceac2bb9,subnet-ea9c46b3
+
 create-stack:
 	aws cloudformation create-stack \
 	    --stack-name=hubot-eb       \
