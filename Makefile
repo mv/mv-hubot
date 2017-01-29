@@ -1,32 +1,45 @@
 # vim:ft=make:ts=8:sts=8:sw=8:noet:tw=80:wrap:list
 
 # VERSION :=$(shell bash version.sh )
-# RELEASE :=$(shell ls -1 dist/*.noarch.rpm 2>/dev/null | wc -l )
+TAGS  :="app=hubot,owner=mv"
 TOKEN :=$(shell bash config/slack-token.sh)
 
-.PHONY: create-stack  \
-	update-stack  \
-	delete-stack  \
-	list-stacks \
-	create-env  \
-	config      \
-	test        \
-	install     \
+.PHONY: var               \
+	eb-init           \
+	eb-create-sample  \
+	eb-create-simple  \
+	eb-create-blue    \
+	eb-create-green   \
+	list-solutions    \
+	create-stack      \
+	update-stack      \
+	delete-stack      \
+	config            \
+	test              \
+	install           \
+	hubot-init        \
 	clean
 
 all:
 	@echo "Tasks:"
-	@echo "    make create-stack    - Cloudformation create EB stack"
-	@echo "    make update-stack    - Cloudformation update EB stack"
-	@echo "    make list-solutions  - list current EB solutionstacks"
-	@echo "    make create-env   - Cloudformation create EB env"
-	@echo "    make config       - Run a simple configuration CLI program"
-	@echo "    make test         - Run tests"
-	@echo "    make install      - Install on local system"
-	@echo "    make clean        - Get rid of scratch and byte files"
+	@echo "    make eb-init          - init for eb deploy"
+	@echo "    make eb-create-sample - eb env: sample"
+	@echo "    make eb-create-simple - eb env: simple"
+	@echo "    make eb-create-blue   - eb env: blue"
+	@echo "    make eb-create-green  - eb env: green"
+	@echo "    make list-solutions   - eb: list current solutionstacks"
+	@echo "    make create-stack     - Cloudformation create EB stack"
+	@echo "    make update-stack     - Cloudformation update EB stack"
+	@echo "    make var              - show config vars"
+	@echo "    make config           - echo config"
+	@echo "    make test             - echo tests"
+	@echo "    make install          - Install on local system"
+	@echo "    make hubot-generator  - generator hubot: run only once"
+	@echo "    make clean            - Get rid of scratch and byte files"
 
 var:
-	@echo "Token: $(TOKEN)"
+	@echo "  TAGS  : $(TAGS)"
+	@echo "  TOKEN : $(TOKEN)"
 
 eb-init:
 	eb init hubot-eb \
@@ -100,23 +113,29 @@ delete-stack:
 	    --output=text
 
 
-list-stacks:
+list-solutions:
 	aws elasticbeanstalk list-available-solution-stacks \
 	    --output=text | egrep ^SOLUTIONSTACKS | grep -i node | sort
 
 config:
-	./bin/diamond-setup --configfile=conf/diamond.conf
+	echo "config"
 
 test:
-	./test.py
+	echo "test"
 
 install: version
 	./setup.py install --root $(DESTDIR)
+
+hubot-init:
+	yo hubot \
+	    --name="Hubot"          \
+	    --owner="ferreira.mv"   \
+	    --adapter="slack"
 
 clean:
 	rm -rf ./node_modules/*
 	find . -name '*.pyc' -delete
 
 version:
-	./version.sh > version.txt
+	echo "./version.sh > version.txt"
 
